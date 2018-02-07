@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>ToDo</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:100"     rel="stylesheet"> -->
+    <link href="css/styles.css" rel="stylesheet">
+    <script type="text/javascript" src="js/func.js"></script>
+  </head>
+<body>
+    <div class="container">
+        <h2>Todo list </h2>
+        <div id="list">
+            <ul>
+                <% for (var i = 0; i < todos.length; i++) {%>
+                <li>
+                    
+                    <input type="checkbox" name="todo" onClick="check(this)" id="<%= todos[i]._id %>" <%= todos[i].check %>/>
+                    <label for="<%= todos[i]._id %>"><%= todos[i].name %></label>
+                    <div >
+                    <%= todos[i].info %>
+                    </div>
+                </li>
+                <%} %>
+            </ul>
+        </div>
+        <form action ="/addtask" method="POST">
+            <label>Название: 
+                <input type="text" name="name" placeholder="add new task">
+            </label>
+            <label>Больше информации: 
+                <textarea name="info"></textarea>
+            </label>
+            <button> Add Task </button>
+        </form>
+    </div>
+</body>
+</html>
