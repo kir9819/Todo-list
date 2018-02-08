@@ -37,10 +37,7 @@ module.exports = (app, db) => {
     })
     app.post('/addtask', (req, res) => {
         let collection = db.collection('todos');
-        // console.log(req.body);
         let file = { name: req.body.name, check: "", info: req.body.info };
-            // date: req.date, time: req.time };
-        // todos.push(file);
         try {
             collection.insertOne(file);
         }
@@ -51,7 +48,6 @@ module.exports = (app, db) => {
         res.redirect('/');
     })
     app.post('/changecheck', (req, res) => {
-        // console.log(req.body);
         let ObjectID = require('mongodb').ObjectId;
         let collection = db.collection('todos');
         let selfres = res;
@@ -73,7 +69,28 @@ module.exports = (app, db) => {
             console.log(err);
             // selfres.redirect('/');
         }
-        res.redirect('/');
+        return res.redirect('/');
+    })
+    app.post('/delete', (req, res) => {
+        console.log(req.body);
+        self = res;
+        let ObjectID = require('mongodb').ObjectId;
+        let collection = db.collection('todos');
+        try {
+            collection.remove(
+                {_id: ObjectID(req.body.id)},
+                (err, res) => {
+                    if(err) throw err;
+                }
+            )
+            // return self.redirect('/');
+        }
+        catch (err) {
+            console.error("didn't delete");
+            console.log(err);
+            // return self.redirect('/');
+        }
+        
     })
 }
 

@@ -19,3 +19,17 @@ function check(t) {
 
         xhr.send(body);
 }
+
+function deleteTodo(t) {
+    console.log(t);
+    var xhr = new XMLHttpRequest();
+
+        var body = 'id=' + encodeURIComponent(t.id);
+
+        xhr.open("POST", '/delete', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        // xhr.onreadystatechange = ...;
+
+        xhr.send(body);
+}

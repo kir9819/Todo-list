@@ -15,9 +15,10 @@
                     
                     <input type="checkbox" name="todo" onClick="check(this)" id="<%= todos[i]._id %>" <%= todos[i].check %>/>
                     <label for="<%= todos[i]._id %>"><%= todos[i].name %></label>
-                    <div >
+                    <span class="info">
                     <%= todos[i].info %>
-                    </div>
+                    </span>
+                    <button onClick="deleteTodo(this)" id="<%= todos[i]._id %>">Del</button>
                 </li>
                 <%} %>
             </ul>
