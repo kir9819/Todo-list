@@ -1,3 +1,7 @@
+// import { ObjectID } from "../../../../../../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bson";
+
+// import { ObjectId } from "../../../../../../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/bson";
+
 // let express = require('express');
 // let app = express();
 
@@ -32,7 +36,7 @@ module.exports = (app, db) => {
         
     })
     app.post('/addtask', (req, res) => {
-        let collection = db.collection("todos");
+        let collection = db.collection('todos');
         // console.log(req.body);
         let file = { name: req.body.name, check: "", info: req.body.info };
             // date: req.date, time: req.time };
@@ -41,10 +45,35 @@ module.exports = (app, db) => {
             collection.insertOne(file);
         }
         catch (err) {
-            console.error("don't save in bd");
+            console.error("don't save in db");
             console.log(err);
         }
-        res.redirect("/");
+        res.redirect('/');
+    })
+    app.post('/changecheck', (req, res) => {
+        // console.log(req.body);
+        let ObjectID = require('mongodb').ObjectId;
+        let collection = db.collection('todos');
+        let selfres = res;
+        let ch = req.body.check;
+        try {
+            collection.findOneAndUpdate(
+                {_id: ObjectID(req.body.id)},
+                {$set: {check: ch}},
+                {returnOriginal: false},
+                (err, res) => {
+                    // console.log(res);
+                    if(err) throw err;
+                    // selfres.redirect('/');
+                }
+            )
+        }
+        catch (err) {
+            console.error("don't update check in db");
+            console.log(err);
+            // selfres.redirect('/');
+        }
+        res.redirect('/');
     })
 }
 
