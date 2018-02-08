@@ -9,29 +9,47 @@
     <div class="container">
         <h2>Todo list </h2>
         <div id="list">
-            <ul>
-                <% for (var i = 0; i < todos.length; i++) {%>
-                <li>
-                    
-                    <input type="checkbox" name="todo" onClick="check(this)" id="<%= todos[i]._id %>" <%= todos[i].check %>/>
-                    <label for="<%= todos[i]._id %>"><%= todos[i].name %></label>
-                    <span class="info">
-                    <%= todos[i].info %>
-                    </span>
-                    <button onClick="deleteTodo(this)" id="<%= todos[i]._id %>">Del</button>
-                </li>
+            <div>
+                <% if (todos.length == 0) {%>
+                <div>Нет заметок</div>
                 <%} %>
-            </ul>
+                <% for (var i = 0; i < todos.length; i++) {%>
+                <div>
+                    <input type="checkbox" name="todo" onClick="check(this)" 
+                      id="<%= todos[i]._id %>" <%= todos[i].check %>/>
+                    <label for="<%= todos[i]._id %>"><%= todos[i].name %></label>
+                    <div class="info">
+                    <%= todos[i].info %>
+                    </div>
+                    <!-- <button onClick="changeTodo(this)" id="<%= todos[i]._id %>">Изм</button> -->
+                    <button onClick="deleteTodo(this)" id="<%= todos[i]._id %>">Удал</button>
+                </div>
+                <%} %>
+            </div>
         </div>
-        <form action ="/addtask" method="POST">
-            <label>Название: 
-                <input type="text" name="name" placeholder="add new task">
-            </label>
-            <label>Больше информации: 
-                <textarea name="info"></textarea>
-            </label>
-            <button> Add Task </button>
-        </form>
+        <div class="hide" id="change">
+            <form action = "/changeTodo" method="POST">
+                <label>Название:
+                    <input type="text" name="nameCh" placeholder="Название задачи"/>
+                </label>
+                <label>Другая информация:
+                    <textarea name="infoCh"></textarea>
+                </label>
+                <button>Обновить</button>
+
+            </form>
+        </div>
+        <div>Новая задача
+            <form action ="/addtask" method="POST">
+                <label>Название: 
+                    <input type="text" name="name" placeholder="Название задачи">
+                </label>
+                <label>Другая информация: 
+                    <textarea name="info"></textarea>
+                </label>
+                <button>Добавить</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

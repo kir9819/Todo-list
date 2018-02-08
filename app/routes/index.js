@@ -14,17 +14,19 @@
 //     console.log('ok');
 // })
 
-module.exports = (app, db) => {
+module.exports = (app, db, todos) => {
+    
     app.get('/', (req, res) => {
         let collection = db.collection("todos");
         let self = res;
         try {
-            collection.find({}).toArray((err, res) => {
+            collection.find({}).toArray((err, res) => { // finding todo in db
+                                                        // and show todos
                 todos = res;
                 if (todos != null) {
                     return self.render('index', { todos: todos });
                 }
-                return self.render('index');
+                else return self.render('index');
             })
         }
         catch (err) {
@@ -35,6 +37,7 @@ module.exports = (app, db) => {
         // res.render('index');
         
     })
+
     app.post('/addtask', (req, res) => {
         let collection = db.collection('todos');
         let file = { name: req.body.name, check: "", info: req.body.info };
@@ -69,10 +72,9 @@ module.exports = (app, db) => {
             console.log(err);
             // selfres.redirect('/');
         }
-        return res.redirect('/');
+        res.redirect('/');
     })
     app.post('/delete', (req, res) => {
-        console.log(req.body);
         self = res;
         let ObjectID = require('mongodb').ObjectId;
         let collection = db.collection('todos');
@@ -81,6 +83,7 @@ module.exports = (app, db) => {
                 {_id: ObjectID(req.body.id)},
                 (err, res) => {
                     if(err) throw err;
+                    return self.redirect('/');
                 }
             )
             // return self.redirect('/');

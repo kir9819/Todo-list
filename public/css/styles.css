@@ -3,3 +3,15 @@
     max-height: 60%;
     height: 60%;
 }
+
+#change {
+    position: absolute;
+    background-color: white;
+    top: 30%;
+    left: 30%;
+    z-index: 100;
+}
+.hide {
+    display: none;
+    /* visibility: hidden; */
+}
